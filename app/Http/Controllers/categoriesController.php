@@ -15,6 +15,8 @@ class categoriesController extends Controller
     public function index()
     {
         //
+        $categories = Category::all();
+        return view('categories.index')->with('categories', $categories);
     }
 
     /**
@@ -44,7 +46,7 @@ class categoriesController extends Controller
         $category = new Category;
         $category->name = $request->input('name');
         $category->save();
-        return redirect('/kes/create')->with('success', 'Category added');
+        return redirect('/categories')->with('success', 'Category added');
     }
 
     /**
@@ -90,5 +92,8 @@ class categoriesController extends Controller
     public function destroy($id)
     {
         //
+        $category = Category::find($id);
+        $category->delete();
+        return redirect('/categories');
     }
 }

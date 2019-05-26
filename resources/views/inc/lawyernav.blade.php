@@ -9,12 +9,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                            <a class="nav-link" href="/kes">Cases</a>
-                        </li>
-            </ul>
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
@@ -50,3 +44,28 @@
         </div>
     </div>
 </nav>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" >
+            <div class="sidebar-sticky"style="height: -webkit-fill-available;">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">Lawyer</h6>
+                <ul class="nav flex-column">
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Cases<span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/kes">
+                                Show
+                            </a>
+                            <a class="dropdown-item" href="/kes/create">
+                                Add
+                            </a>
+                        </div>
+                    </li>
+            </div>
+
+        </nav>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="margin-top: 10px">

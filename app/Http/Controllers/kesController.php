@@ -111,6 +111,8 @@ class kesController extends Controller
     public function show($id)
     {
         //
+        $kes = Kes::find($id);
+        return view('kes.show')->with('kes', $kes);
     }
 
     /**

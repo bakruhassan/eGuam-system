@@ -18,8 +18,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+ 
 </head>
-<body>
+<body style="background-color: white;">
     <div id="app">
 @if(Auth::check())
         @if(Auth::user()->role == 'admin')
@@ -29,12 +32,13 @@
         @include('inc.lawyernav')
         @endif
 @endif
-<br>
         <div class="container">
             @include('inc.messages')
             @yield('content')
         </div>
-        
+   </main>     
+    </div>
+</div>
     </div>
 </body>
 </html>
