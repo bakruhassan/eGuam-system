@@ -21,6 +21,7 @@ Route::resource('kes', 'kesController');
 Route::resource('notices', 'noticesController');
 Route::resource('customers', 'customersController');
 Route::resource('categories', 'categoriesController');
-Route::resource('guide', 'GuideController');
+Route::resource('guide', 'guideController');
+Route::resource('evidences', 'evidencesController');
 
 Route::get('/home', 'HomeController@index')->name('home');

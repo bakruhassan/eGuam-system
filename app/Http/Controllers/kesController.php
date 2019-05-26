@@ -112,7 +112,12 @@ class kesController extends Controller
     {
         //
         $kes = Kes::find($id);
-        return view('kes.show')->with('kes', $kes);
+        $evidences = Evidence::all()->where('kes_id', $id);
+        $data = [
+            'kes' => $kes,
+            'evidences' => $evidences,
+        ];
+        return view('kes.show')->with($data);
     }
 
     /**
@@ -124,6 +129,19 @@ class kesController extends Controller
     public function edit($id)
     {
         //
+        $lawyer_id = Auth::user()->id;
+        $customers = Customer::all()->where('user_id', $lawyer_id);
+        $evidences = Evidence::all()->where('user_id', $lawyer_id)->where('kes_id', $id);
+        $categories = Category::all();
+
+        $kes = Kes::find($id);
+        $data = [
+            'kes' => $kes,
+            'customers' => $customers,
+            'evidences' => $evidences,
+            'categories' => $categories,
+        ];
+        return view('kes.edit')->with($data);
     }
 
     /**
@@ -136,6 +154,25 @@ class kesController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $this->validate($request, [
+            'name' => 'required',
+            'expenses' => 'required',
+            'status' => 'required',
+            'category_id' => 'required',
+            'user_id' => 'required',
+            'customer_id' => 'required',
+        ]);
+        // Create a Case
+        $kes = Kes::find($id);
+        $kes->name = $request->input('name');
+        $kes->expenses = $request->input('expenses');
+        $kes->status = $request->input('status');
+        $kes->category_id = $request->input('category_id');
+        $kes->customer_id = $request->input('customer_id');
+        $kes->user_id = $request->input('user_id');
+        $kes->save();
+        return redirect('/kes')->with('success', 'Case updated');
     }
 
     /**
