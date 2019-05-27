@@ -53,7 +53,7 @@
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light nav navbar" >
             <div class="sidebar-sticky"style="height: -webkit-fill-available;">
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">Lawyer</h6>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">Admin</h6>
                 <ul class="nav flex-column">
 
                     <li class="nav-item dropdown">
@@ -63,9 +63,24 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/kes">
-                                List
+                                Show
                             </a>
                             <a class="dropdown-item" href="/kes/create">
+                                Add
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Customers<span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/customers">
+                                Show
+                            </a>
+                            <a class="dropdown-item" href="/inc/modal/createCustomer">
                                 Add
                             </a>
                         </div>
@@ -78,7 +93,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/categories">
-                                List
+                                Show
                             </a>
                             <a class="dropdown-item" href="/categories/create">
                                 Add
@@ -92,7 +107,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/guide">
-                                List
+                                Show
                             </a>
                             <a class="dropdown-item" href="/guide/create">
                                 Add

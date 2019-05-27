@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="row justify-content-center">
-{!! Form::open(['action' => 'GuideController@store']) !!}
+{!! Form::open(['action' => 'guideController@store']) !!}
     <div class="form-group">
 
         <div class="row">
