@@ -24,4 +24,6 @@ Route::resource('categories', 'categoriesController');
 Route::resource('guide', 'guideController');
 Route::resource('evidences', 'evidencesController');
 
+Route::get('/kes/{kes_id}/evidences', 'evidencesController@getKesEvidence');
+
 Route::get('/home', 'HomeController@index')->name('home');

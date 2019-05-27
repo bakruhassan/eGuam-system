@@ -16,6 +16,12 @@ class evidencesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getKesEvidence($kes_id)
+    {
+        //
+        $evidences = Evidence::all()->where('kes_id', $kes_id);
+        return view('evidences.index')->with('evidences', $evidences);
+    }
     public function index()
     {
         //
@@ -34,10 +40,10 @@ class evidencesController extends Controller
         //
             $lawyer_id = Auth::user()->id;
             $categories = Category::all();
-            $keskes = Kes::all()->where('user_id', $lawyer_id);
+            $evidencekes = Kes::all()->where('user_id', $lawyer_id);
 
             $data = [
-                'keskes' => $keskes,
+                'keskes' => $evidencekes,
                 'categories' => $categories,
             ];
             return view('evidences.create')->with($data);
@@ -52,6 +58,38 @@ class evidencesController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'name' => 'required',
+            'desc' => 'required',
+            'file' => 'mimes:zip,rar|max:10000|nullable',
+            'kes_id' => 'required',
+            'user_id' => 'required',
+        ]);
+        //Handle File Upload
+        if($request->hasFile('file')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload file
+            $path = $request->file('file')->storeAs('public/evidences', $fileNameToStore);
+
+        }else {
+            $fileNameToStore = 'N/A';
+        }
+        // Create an Evidence
+        $evidence = new Evidence;
+        $evidence->name = $request->input('name');
+        $evidence->desc = $request->input('desc');
+        $evidence->user_id = $request->input('user_id');
+        $evidence->file = $fileNameToStore;
+        $evidence->kes_id = $request->input('kes_id');
+        $evidence->save();
+        return redirect('/evidences')->with('success', 'Evidence added');
     }
 
     /**
@@ -63,6 +101,9 @@ class evidencesController extends Controller
     public function show($id)
     {
         //
+        $lawyer_id = Auth::user()->id;
+        $evidence = Evidence::find($id);
+        return view('evidences.show')->with('evidence', $evidence);
     }
 
     /**
@@ -74,6 +115,17 @@ class evidencesController extends Controller
     public function edit($id)
     {
         //
+            $lawyer_id = Auth::user()->id;
+            $categories = Category::all();
+            $evidencekes = Kes::all()->where('user_id', $lawyer_id);
+            $evidence = Evidence::find($id);
+
+            $data = [
+                'keskes' => $evidencekes,
+                'categories' => $categories,
+                'evidence' => $evidence,
+            ];
+            return view('evidences.edit')->with($data);
     }
 
     /**
@@ -85,7 +137,39 @@ class evidencesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //        //
+        $this->validate($request, [
+            'name' => 'required',
+            'desc' => 'required',
+            'file' => 'mimes:zip,rar|max:10000|nullable',
+            'kes_id' => 'required',
+            'user_id' => 'required',
+        ]);
+        //Handle File Upload
+        if($request->hasFile('file')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload file
+            $path = $request->file('file')->storeAs('public/evidences', $fileNameToStore);
+
+        }else {
+            $fileNameToStore = 'N/A';
+        }
+        // Update an Evidence
+        $evidence = Evidence::find($id);
+        $evidence->name = $request->input('name');
+        $evidence->desc = $request->input('desc');
+        $evidence->user_id = $request->input('user_id');
+        $evidence->file = $fileNameToStore;
+        $evidence->kes_id = $request->input('kes_id');
+        $evidence->save();
+        return redirect('/evidences')->with('success', 'Evidence edited');
     }
 
     /**

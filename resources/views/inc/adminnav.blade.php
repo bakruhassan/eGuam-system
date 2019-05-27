@@ -63,7 +63,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/kes">
-                                Show
+                                List
                             </a>
                             <a class="dropdown-item" href="/kes/create">
                                 Add
@@ -78,7 +78,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/categories">
-                                Show
+                                List
                             </a>
                             <a class="dropdown-item" href="/categories/create">
                                 Add
@@ -92,7 +92,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/guide">
-                                Show
+                                List
                             </a>
                             <a class="dropdown-item" href="/guide/create">
                                 Add

@@ -163,7 +163,7 @@ class kesController extends Controller
             'user_id' => 'required',
             'customer_id' => 'required',
         ]);
-        // Create a Case
+        // Update Case
         $kes = Kes::find($id);
         $kes->name = $request->input('name');
         $kes->expenses = $request->input('expenses');
