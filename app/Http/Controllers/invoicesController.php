@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Customer;
+use Auth;
+use \App\Kes;
+use \App\Invoice;
 
-class customersController extends Controller
+class invoicesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +17,16 @@ class customersController extends Controller
     public function index()
     {
         //
-        $customers = Customer::all();
-        return view('customers.index')->with('customers', $customers);
+        if (Auth::user()->role == 'admin') {
+            
+        $invoices = Invoice::all();
+        return view('invoices.index')->with('invoices', $invoices);
+        
+        }elseif(Auth::user()->role == 'lawyer'){
+        $lawyer_id = Auth::user()->id;
+        $invoices = Invoice::all()->where('user_id', $lawyer_id);
+        return view('invoices.index')->with('invoices', $invoices);
+    }
     }
 
     /**
@@ -27,7 +37,9 @@ class customersController extends Controller
     public function create()
     {
         //
-        return view('customers.create');
+        $lawyer_id = Auth::user()->id;
+        $keskes = Kes::all()->where('user_id', $lawyer_id);
+        return view('invoices.create')->with('keskes', $keskes);
     }
 
     /**
@@ -40,24 +52,15 @@ class customersController extends Controller
     {
         //
         $this->validate($request, [
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'ic' => 'required',
+            'kes_id' => 'required',
             'user_id' => 'required',
-            'birthdate' => 'required',
         ]);
-        // Create Customer
-        $customer = new Customer;
-        $customer->name = $request->input('name');
-        $customer->address = $request->input('address');
-        $customer->phone = $request->input('phone');
-        $customer->ic = $request->input('ic');
-        $customer->birthdate = $request->input('birthdate');
-        $customer->user_id = $request->input('user_id');
-        $customer->save();
-        return redirect('/kes/create')->with('success', 'Customer added');
-        
+        // Create a Case
+        $invoice = new Invoice;
+        $invoice->kes_id = $request->input('kes_id');
+        $invoice->user_id = $request->input('user_id');
+        $invoice->save();
+        return redirect('/invoices')->with('success', 'Invoice generated');
     }
 
     /**
@@ -69,6 +72,8 @@ class customersController extends Controller
     public function show($id)
     {
         //
+        $invoice = Invoice::find($id);
+        return view('invoices.show')->with('invoice', $invoice);
     }
 
     /**

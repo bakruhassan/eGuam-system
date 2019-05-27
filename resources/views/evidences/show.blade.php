@@ -44,5 +44,6 @@
 	    		<button type="submit" class="btn btn-danger">DELETE</button>
 	    		{!! Form::close() !!}
 	    	</div>
+	    		<a href="/evidences/{{$evidence->id}}/edit" class="btn btn-warning">EDIT</a>
 </div>
 @endsection

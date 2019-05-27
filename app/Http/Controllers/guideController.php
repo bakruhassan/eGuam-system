@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Guide;
+use \App\Guide;
+use \App\Category;
 
 class GuideController extends Controller
 {
@@ -14,7 +15,8 @@ class GuideController extends Controller
      */
     public function index()
     {
-        return view('guides.index');
+        $guides = Guide::all();
+        return view('guides.index')->with('guides', $guides);
     }
 
     /**
@@ -25,8 +27,12 @@ class GuideController extends Controller
     public function create()
     {
         //
+        $categories = Category::all();
+        $data = [
+            'categories' => $categories,
+        ];
 
-        return view('guides.create');
+        return view('guides.create')->with($data);
     }
 
     /**
@@ -37,19 +43,36 @@ class GuideController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+            $this->validate($request, [
             'name' => 'required',
-            'category' => 'required',
-            'description' => 'required',
+            'desc' => 'required',
+            'category_id' => 'required',
+            'file' => 'max:10000|nullable',
         ]);
-        // Create guide
+        //Handle File Upload
+        if($request->hasFile('file')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload file
+            $path = $request->file('file')->storeAs('public/guides', $fileNameToStore);
+
+        }else {
+            $fileNameToStore = 'N/A';
+        }
+        // Create a guide
         $guide = new Guide;
         $guide->name = $request->input('name');
-        $guide->category_id = $request->input('category');
-        $guide->desc = $request->input('description');
-
+        $guide->desc = $request->input('desc');
+        $guide->category_id = $request->input('category_id');
+        $guide->file = $fileNameToStore;
         $guide->save();
-        return redirect('/guide')->with('success', 'guide added');
+        return redirect('/guide')->with('success', 'Guide added');
     }
 
     /**
@@ -61,6 +84,8 @@ class GuideController extends Controller
     public function show($id)
     {
         //
+        $guide = Guide::find($id);
+        return view('guides.show')->with('guide', $guide);
     }
 
     /**

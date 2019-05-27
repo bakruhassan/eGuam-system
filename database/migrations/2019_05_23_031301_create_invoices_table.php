@@ -15,6 +15,7 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedbiginteger('user_id')->unsigned()->nullable();
             $table->unsignedbiginteger('kes_id')->unsigned()->nullable();
             $table->timestamps();
         });
@@ -23,6 +24,7 @@ class CreateInvoicesTable extends Migration
 
            Schema::table('invoices', function (Blueprint $table) {
                   
+                      $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
                       $table->foreign('kes_id')->references('id')->on('kes')->onDelete('cascade');
 
  

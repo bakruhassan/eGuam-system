@@ -63,7 +63,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/kes">
-                                Show
+                                List
                             </a>
                             <a class="dropdown-item" href="/kes/create">
                                 Add
@@ -78,7 +78,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/customers">
-                                Show
+                                List
                             </a>
                             <a class="dropdown-item" href="/inc/modal/createCustomer">
                                 Add
@@ -93,7 +93,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/categories">
-                                Show
+                                List
                             </a>
                             <a class="dropdown-item" href="/categories/create">
                                 Add
@@ -107,12 +107,25 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/guide">
-                                Show
+                                List
                             </a>
                             <a class="dropdown-item" href="/guide/create">
                                 Add
                             </a>
                         </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Invoice<span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/invoices">
+                                List
+                            </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
 

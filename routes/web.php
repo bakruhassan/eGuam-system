@@ -23,6 +23,7 @@ Route::resource('customers', 'customersController');
 Route::resource('categories', 'categoriesController');
 Route::resource('guide', 'guideController');
 Route::resource('evidences', 'evidencesController');
+Route::resource('invoices', 'invoicesController');
 
 Route::get('/kes/{kes_id}/evidences', 'evidencesController@getKesEvidence');
 
